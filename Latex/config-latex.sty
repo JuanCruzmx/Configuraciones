@@ -1,0 +1,34 @@
+\ProvidesPackage{config-latex}
+
+% --- Paquetes ---
+\RequirePackage[utf8]{inputenc}		
+\RequirePackage[spanish]{babel}				% Idioma
+\RequirePackage[margin=2.5cm]{geometry}		% Margen
+\RequirePackage{amsmath, amssymb}			% Matematicas
+\RequirePackage{fancyhdr}					% Encabezados
+
+% --- Comandos ---
+\newcommand{\IPN}{Instituto Politecnico Nacional}
+\newcommand{\ESIME}{Escuela Superior de Ingenieria Mecanica y Electrica}
+\newcommand{\ICE}{Ingenieria en Comunicaciones y Electronica}
+\newcommand{\autor}{Juan Cruz Osorio}
+\newcommand{\Portada}[1]{
+	\begin{center}
+		{\LARGE\textbf{\IPN}}\\
+		{\large\textbf{\ESIME}}\\
+		{\ICE}\\
+		\vspace{8cm}
+		{\Huge\textbf{#1}}\\
+		\vspace{8cm}
+		{\large\autor}
+		\vfill
+		\today
+		\newpage
+	\end{center}
+}
+
+% --- Formato ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\autor}
+\fancyfoot[C]{\thepage}
