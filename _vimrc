@@ -9,4 +9,4 @@ set softtabstop=4
 set clipboard=unnamed
 set directory=$HOME/AppData/Local/Temp//
 
-autocmd FileType tex nnoremap <C-c> :w<CR>:!pdflatex % && del *.aux *.log *.out *.toc *.fdb_latexmk *.fls && start %:r.pdf<CR>
+autocmd FileType tex nnoremap <C-c> :w<CR>:let $TEXINPUTS='.;C:/Users/juanc/Desktop/JuanCruz/Git/Configuraciones/Latex//' <Bar> :!pdflatex % && pdflatex % && del *.aux *.log *.out *.toc *.fdb_latexmk *.fls && start %:r.pdf<CR>
