@@ -8,14 +8,14 @@
 \RequirePackage{fancyhdr}					% Encabezados
 \RequirePackage{tikz}						% Graficos
 \RequirePackage{graphicx}					% Imagenes
-	\graphicspath{{./Logos/}}
+	\graphicspath{{./Configuraciones/Config-Latex/Logos/}}
 
 % --- Comandos ---
 \newcommand{\autor}{Juan Cruz Osorio}
 \newcommand{\PortadaIPN}[1]{
 	\begin{tikzpicture}[remember picture, overlay]
-		\node[anchor=north west] at ([xshift=2.3cm, yshift=-2cm]current page.north west){\includegraphics[width=2.3cm, height=2.8cm]{IPN.png}};
-		\node[anchor=north east] at ([xshift=-2cm, yshift=-2cm]current page.north east){\includegraphics[width=3cm, height=2.5cm]{ESIME.jpg}};
+		\node[anchor=north west] at ([xshift=2.3cm, yshift=-2cm]current page.north west){\includegraphics[width=2.3cm, height=2.8cm]{IPN}};
+		\node[anchor=north east] at ([xshift=-2cm, yshift=-2cm]current page.north east){\includegraphics[width=3cm, height=2.5cm]{ESIME}};
 	\end{tikzpicture}
 	\begin{center}
 		{\LARGE\textbf{Instituto Politecnico Nacional}}\\
