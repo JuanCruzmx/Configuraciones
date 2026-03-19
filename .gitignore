@@ -1,2 +1,10 @@
 # --- Archivos ---
 *.pdf
+*.swp
+
+*.aux
+*.log
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
