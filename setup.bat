@@ -1,13 +1,15 @@
 @echo off
-echo ===== Intalador de Configuraciones de Juan Cruz para Vim =====
-set REPO_PATH=%cd%
-set VIMRC_FILE=%REPO_PATH%\.vimrc
 
-set VIMRC_CONTENT=source %VIMRC_FILE:\=/%
+set "CUR_DIR=%cd:\=/%"
 
-echo %VIMRC_CONTENT% > "%USERPROFILE%\_vimrc"
+echo " Configuracion de Juan Cruz" > "%USERPROFILE%\_vimrc"
+echo source %CUR_DIR%/.vimrc >> "%USERPROFILE%\_vimrc"
+
+set "PLANTILLA=%CUR_DIR%/Config-Latex/plantilla.tex"
+
+echo autocmd BufNewFile *.tex 0read %PLANTILLA% ^| set filetype=tex >> "%USERPROFILE%\_vimrc"
 
 echo Instalación completada...
-echo Configuraciones y estilos listos para Vim en tu sistema...
+echo Plantilla Latex completada...
 
 pause

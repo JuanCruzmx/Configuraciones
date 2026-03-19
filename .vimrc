@@ -7,6 +7,7 @@ else
 endif
 
 function! CopilarLatex()
+	write
 	if has("win32") || has("win64")
 		let l:separador = ';'
 		let l:borrar = 'del *.aux *.log *.out *.toc *.fdb_latexmk *.fls'
