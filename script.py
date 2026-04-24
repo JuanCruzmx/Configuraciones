@@ -18,25 +18,28 @@ def config_vim():
         '"  --- Configuraciones básicas ---',
         'syntax on',
         'set number',
+        'set relativenumber',
         'set mouse=a',
 	    'set tabstop=4',
 	    'set shiftwidth=4',
 	    'set expandtab',
+        'set cursorline',
+        'set laststatus=2',
+        'set showmode',
+        'set showmatch',
+        'set clipboard=unnamedplus',
+        '"  --- Estilos ---',
+        'set background=dark',
 	    'colorscheme desert',
+        '"  --- Comandos ---',
+        'nnoremap <C-z> :w<CR>:!pdflatex %<CR>',
     ]
-
-    if latex:
-        config.append('nnoremap <C-c> :w<CR>:!pdflatex %<CR>')
-        mensaje = 'LaTeX detectado...'
-    else:
-        mensaje = 'No se encontro LaTeX...'
     
     with open(ruta, 'w') as f:
         f.write("\n".join(config))
     
     print(f'¡Vim configurado en {sistema}!')
     print(f'Ruta: {ruta}')
-    print(mensaje)
 
 if __name__ == '__main__':
     config_vim()
