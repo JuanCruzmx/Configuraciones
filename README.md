@@ -1,1 +1,1 @@
-<h1>Configuraciones y entorno de trabajo</h1>
+<h1>Configuraciones para Vim</h1>
