@@ -32,7 +32,7 @@ class Config:
             r'',
             r'\title{}',
             r'\date{\today}',
-            r'\author{Juan Cruz Osorio}',
+            r'\author{Juan Cruz}',
             r'',
             r'\begin{document}',
             r'',
