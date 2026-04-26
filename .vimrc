@@ -12,7 +12,7 @@ set showmode
 set showmatch
 set clipboard=unnamedplus
 "  --- Estilos ---
-set background=dark
+set termguicolors
 colorscheme desert
 "  --- Comandos ---
 autocmd BufEnter *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex % && rm -f "%:r.aux" "%:r.log" "%:r.out"<CR>:!explorer.exe "%:r.pdf"<CR><CR>

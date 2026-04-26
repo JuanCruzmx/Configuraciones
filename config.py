@@ -7,6 +7,7 @@ class Config:
         self.os = platform.system()         # Detección del sistema
         self.home = os.path.expanduser("~")      # Busca carpeta de usuario
         self.herramientas = ['vim', 'git', 'pdflatex', 'python3', 'gcc']    
+        self.tema = 'desert'
         self.sistema()
         self.verificar()
     def sistema(self): 
@@ -53,8 +54,8 @@ class Config:
             'set showmatch',
             'set clipboard=unnamedplus',
             '"  --- Estilos ---',
-            'set background=dark',
-            'colorscheme desert',
+            'set termguicolors',
+            f'colorscheme {self.tema}',
             '"  --- Comandos ---',
             f'autocmd BufEnter *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex % && rm -f "%:r.aux" "%:r.log" "%:r.out"<CR>:{self.abrir_pdf}<CR><CR>',
             '"  --- Funciones ---',
