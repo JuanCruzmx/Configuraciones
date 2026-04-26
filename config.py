@@ -29,6 +29,7 @@ class Config:
             r'\usepackage{graphicx}',
             r'\usepackage[margin=2.5cm]{geometry}',
             r'\usepackage{hyperref}',
+            r'\setlength{\parindent}{0pt}',
             r'',
             r'\title{}',
             r'\date{\today}',
