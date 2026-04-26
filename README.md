@@ -5,6 +5,6 @@
 <pre style="background-color: #f6f8fa; padding: 10px; border-radius: 6px;">
 <code>
 git clone https://github.com/JuanCruzmx/Configuraciones.git
-python3 config-vim.py 
+python3 config.py 
 </code>
 </pre>
