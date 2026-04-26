@@ -74,7 +74,7 @@ class Config:
     def verificar(self): 
         self.archivos()
         print(f'Sistema Operativo: {self.os}')
-        print(f'Vimrc: {self.ruta}')
+        print(f'{"vimrc".ljust(10)} | {str(os.path.exists(self.ruta)).ljust(10)} | {self.ruta}')
         for h in self.herramientas:
             verificar = shutil.which(h) is not None
             print(f'{h.ljust(10)} | {str(shutil.which(h) is not None).ljust(10)} | {shutil.which(h)}')
