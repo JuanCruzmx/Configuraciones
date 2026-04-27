@@ -15,7 +15,10 @@ set clipboard=unnamedplus
 set termguicolors
 colorscheme desert
 "  --- Comandos ---
-autocmd BufEnter *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex % && rm -f "%:r.aux" "%:r.log" "%:r.out"<CR>:!explorer.exe "%:r.pdf"<CR><CR>
+autocmd BufEnter *.tex nnoremap <buffer> <C-c> :w<CR>:!pdflatex % && rm -f "%:r.aux" "%:r.log" "%:r.out"<CR>:!explorer.exe "%:r.pdf"<CR><CR>
+autocmd BufEnter *.c nnoremap <bufer> <C-c> :w<CR>:!gcc % -o %< && ./ %<<CR>
+autocmd BufEnter *.cpp nnoremap <buffer> <C-c> :w<CR>:!g++ % -o %< && ./%<<CR>
+autocmd BufEnter *.cs nnoremap <buffer> <C-c> :w<CR>:!dotnet run<CR>
 "  --- Funciones ---
 function! PlantillaLatex()
     call setline(1, '\documentclass{article}')

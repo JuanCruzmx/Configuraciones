@@ -6,17 +6,29 @@ class Config:
     def __init__(self):
         self.os = platform.system()         # Detección del sistema
         self.home = os.path.expanduser("~")      # Busca carpeta de usuario
-        self.herramientas = ['vim', 'git', 'pdflatex', 'python3', 'gcc', 'java', 'javac']    
+        self.herramientas = ['vim', 'git', 'pdflatex', 'python3', 'gcc', 'g++', 'dotnet', 'java', 'javac']    
         self.tema = 'desert'
         if self.os == 'Windows':
             self.nombre_vim = '_vimrc'
             self.abrir_pdf = '!start chrome "%:r.pdf"'
+            self.ejecutar = ''
+            self.ext = '.exe'
+            self.borrar = 'del'
+            self.unir = '&'
         elif self.os == 'Darwin':
             self.nombre_vim = '.vimrc'
             self.abrir_pdf = '!open -a "Google Chrome" "%:r.pdf"'
+            self.ejecutar = './'
+            self.ext = ''
+            self.borrar = 'rm -f'
+            self.unir = '&&'
         else:
             self.nombre_vim = ".vimrc"
             self.abrir_pdf = '!explorer.exe "%:r.pdf"'
+            self.ejecutar = './'
+            self.ext = ''
+            self.borrar = 'rm -f'
+            self.unir = '&&'
         self.ruta_vim = os.path.join(self.home, self.nombre_vim)
 
     def plantilla_latex(self):
@@ -59,7 +71,10 @@ class Config:
             'set termguicolors',
             f'colorscheme {self.tema}',
             '"  --- Comandos ---',
-            f'autocmd BufEnter *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex % && rm -f "%:r.aux" "%:r.log" "%:r.out"<CR>:{self.abrir_pdf}<CR><CR>',
+            f'autocmd BufEnter *.tex nnoremap <buffer> <C-c> :w<CR>:!pdflatex % {self.unir} {self.borrar} "%:r.aux" "%:r.log" "%:r.out"<CR>:{self.abrir_pdf}<CR><CR>',
+            f'autocmd BufEnter *.c nnoremap <bufer> <C-c> :w<CR>:!gcc % -o %< {self.unir} {self.ejecutar} %<{self.ext}<CR>',
+            f'autocmd BufEnter *.cpp nnoremap <buffer> <C-c> :w<CR>:!g++ % -o %< {self.unir} {self.ejecutar}%<{self.ext}<CR>',
+            f'autocmd BufEnter *.cs nnoremap <buffer> <C-c> :w<CR>:!dotnet run<CR>',
             '"  --- Funciones ---',
             'function! PlantillaLatex()',
             *[f"    call setline({i+1}, '{linea.replace(chr(39),chr(39)+chr(39))}')" for i, linea in enumerate(plantilla)],
