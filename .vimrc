@@ -34,6 +34,6 @@ function! PlantillaLatex()
     call setline(14, '\begin{document}')
     call setline(15, '')
     call setline(16, '\end{document}')
-   execute "normal! 14G" | startinsert
+   execute "normal! 15G" | startinsert
 endfunction
 autocmd BufNewFile *.tex call PlantillaLatex()
