@@ -72,7 +72,7 @@ class Config:
             f'colorscheme {self.tema}',
             '"  --- Comandos ---',
             f'autocmd BufEnter *.tex nnoremap <buffer> <C-c> :w<CR>:!pdflatex % {self.unir} {self.borrar} "%:r.aux" "%:r.log" "%:r.out"<CR>:{self.abrir_pdf}<CR><CR>',
-            f'autocmd BufEnter *.c nnoremap <bufer> <C-c> :w<CR>:!gcc % -o %< {self.unir} {self.ejecutar} %<{self.ext}<CR>',
+            f'autocmd BufEnter *.c nnoremap <buffer> <C-c> :w<CR>:!gcc % -o %< {self.unir} {self.ejecutar}%<{self.ext}<CR>',
             f'autocmd BufEnter *.cpp nnoremap <buffer> <C-c> :w<CR>:!g++ % -o %< {self.unir} {self.ejecutar}%<{self.ext}<CR>',
             f'autocmd BufEnter *.cs nnoremap <buffer> <C-c> :w<CR>:!dotnet run<CR>',
             '"  --- Funciones ---',
@@ -88,11 +88,10 @@ class Config:
         with open(self.ruta_vim, 'w', encoding='utf-8') as f:
             f.write("\n".join(vim))
         verificar = [('[ OK ]' if shutil.which(h) else '[ FAILED ]', h, shutil.which(h) or '---') for h in self.herramientas]
-        print(f'\nSistema Operativo: {self.os}')
         print(f'\n{("[ OK ]" if os.path.exists(self.ruta_vim) else "[ FAILED ]").ljust(10)} {"vimrc".ljust(13)} {self.ruta_vim}')
         for sta, h, ruta in verificar:
             print(f'{sta.ljust(10)} {h.ljust(13)} {ruta}')
-        print(f'\nSe aplicarón las configuraciones y estilos a Vim')
+        print(f'\n[SUCCESS] Se aplicarón las configuraciones en {self.os}')
 
 if __name__ == '__main__':
     config = Config()
