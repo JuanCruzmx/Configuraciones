@@ -8,9 +8,6 @@ class Config:
         self.home = os.path.expanduser("~")      # Busca carpeta de usuario
         self.herramientas = ['vim', 'git', 'pdflatex', 'python3', 'gcc', 'java', 'javac']    
         self.tema = 'desert'
-        self.sistema()
-        self.verificar()
-    def sistema(self): 
         if self.os == 'Windows':
             self.nombre_vim = '_vimrc'
             self.abrir_pdf = '!start chrome "%:r.pdf"'
@@ -20,8 +17,10 @@ class Config:
         else:
             self.nombre_vim = ".vimrc"
             self.abrir_pdf = '!explorer.exe "%:r.pdf"'
+        self.ruta_vim = os.path.join(self.home, self.nombre_vim)
+
     def plantilla_latex(self):
-        self.plantilla = [
+        return [
             r'\documentclass{article}',
             r'\usepackage[utf8]{inputenc}',
             r'\usepackage[spanish]{babel}',
@@ -39,8 +38,10 @@ class Config:
             r'',
             r'\end{document}',
         ]
+
     def config_vim(self):
-        self.vim  = [
+        plantilla = self.plantilla_latex()
+        return [
             '"  --- Configuraciones ---',
             'syntax on',
             'set number',
@@ -61,26 +62,23 @@ class Config:
             f'autocmd BufEnter *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex % && rm -f "%:r.aux" "%:r.log" "%:r.out"<CR>:{self.abrir_pdf}<CR><CR>',
             '"  --- Funciones ---',
             'function! PlantillaLatex()',
-            *[f"    call setline({i+1}, '{linea.replace(chr(39),chr(39)+chr(39))}')" for i, linea in enumerate(self.plantilla)],
+            *[f"    call setline({i+1}, '{linea.replace(chr(39),chr(39)+chr(39))}')" for i, linea in enumerate(plantilla)],
             '   execute "normal! 15G" | startinsert',
             'endfunction',
             'autocmd BufNewFile *.tex call PlantillaLatex()',
         ]
-    def archivos(self):
-        self.plantilla_latex()
-        self.config_vim()
-        self.ruta_vim = os.path.join(self.home, self.nombre_vim)
+
+    def aplicar(self):
+        vim = self.config_vim()
         with open(self.ruta_vim, 'w', encoding='utf-8') as f:
-            f.write("\n".join(self.vim))
-    def verificar(self): 
-        self.archivos()
-        verificar = [(h, 'ON' if shutil.which(h) else 'OFF', shutil.which(h) or '---') for h in self.herramientas]
+            f.write("\n".join(vim))
+        verificar = [('[ OK ]' if shutil.which(h) else '[ FAILED ]', h, shutil.which(h) or '---') for h in self.herramientas]
         print(f'\nSistema Operativo: {self.os}')
-        print(f'\n{"HERRAMIENTA".center(13)} | {"STATUS".center(10)} | {"RUTA".center(13)}')
-        print(f'{"vimrc".ljust(13)} | {("ON" if os.path.exists(self.ruta_vim) else "OFF").ljust(10)} | {self.ruta_vim}')
-        for h, sta, ruta in verificar:
-            print(f'{h.ljust(13)} | {sta.ljust(10)} | {ruta}')
+        print(f'\n{("[ OK ]" if os.path.exists(self.ruta_vim) else "[ FAILED ]").ljust(10)} {"vimrc".ljust(13)} {self.ruta_vim}')
+        for sta, h, ruta in verificar:
+            print(f'{sta.ljust(10)} {h.ljust(13)} {ruta}')
         print(f'\nSe aplicarón las configuraciones y estilos a Vim')
 
 if __name__ == '__main__':
     config = Config()
+    config.aplicar()
