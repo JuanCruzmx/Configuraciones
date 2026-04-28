@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 "$(dirname "$0")/script.py"
+python3 "$(dirname "$0")/config.py"
