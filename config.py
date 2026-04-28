@@ -6,7 +6,17 @@ class Config:
     def __init__(self):
         self.os = platform.system()         # Detección del sistema
         self.home = os.path.expanduser("~")      # Busca carpeta de usuario
-        self.herramientas = ['vim', 'git', 'pdflatex', 'python3', 'gcc', 'g++', 'dotnet', 'java', 'javac']    
+        self.herramientas = {
+            'vim': 'vim',
+            'git': 'git',
+            'latex': 'pdflatex',
+            'python': 'python3',
+            'C': 'gcc',
+            'C++': 'g++',
+            'C#': 'dotnet',
+            'java': 'java',
+            'java compiler': 'javac',
+        }
         self.tema = 'desert'
         if self.os == 'Windows':
             self.nombre_vim = '_vimrc'
@@ -85,13 +95,17 @@ class Config:
 
     def aplicar(self):
         vim = self.config_vim()
-        with open(self.ruta_vim, 'w', encoding='utf-8') as f:
-            f.write("\n".join(vim))
-        verificar = [('[ OK ]' if shutil.which(h) else '[ FAILED ]', h, shutil.which(h) or '---') for h in self.herramientas]
-        print(f'\n{("[ OK ]" if os.path.exists(self.ruta_vim) else "[ FAILED ]").ljust(10)} {"vimrc".ljust(13)} {self.ruta_vim}')
+        verificar = [('[ OK ]' if shutil.which(h) else '[ FAILED ]', nombre, shutil.which(h) or '---') for nombre, h in self.herramientas.items()]
+        vimrc = f'[ SUCCESS ] Se aplicarón las configuraciones de Vim en {self.os}' if shutil.which('vim') else f'[ FAILED ] vim no esta instalado en {self.os}' 
+        if '[ SUCCESS ]' in vimrc:
+            with open(self.ruta_vim, 'w', encoding='utf-8') as f:
+                f.write("\n".join(vim))
+        else:
+            'Instalar vim'
         for sta, h, ruta in verificar:
             print(f'{sta.ljust(10)} {h.ljust(13)} {ruta}')
-        print(f'\n[SUCCESS] Se aplicarón las configuraciones en {self.os}')
+        print(f'{("[ OK ]" if os.path.exists(self.ruta_vim) else "[ FAILED ]").ljust(10)} {"vimrc".ljust(13)} {self.ruta_vim}')
+        print(vimrc)
 
 if __name__ == '__main__':
     config = Config()
