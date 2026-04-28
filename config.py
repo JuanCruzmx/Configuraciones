@@ -103,8 +103,8 @@ class Config:
         else:
             'Instalar vim'
         for sta, h, ruta in verificar:
-            print(f'{sta.ljust(10)} {h.ljust(13)} {ruta}')
-        print(f'{("[ OK ]" if os.path.exists(self.ruta_vim) else "[ FAILED ]").ljust(10)} {"vimrc".ljust(13)} {self.ruta_vim}')
+            print(f'{sta.ljust(11)} {h.ljust(13)} {ruta}')
+        print(f'{("[ OK ]" if os.path.exists(self.ruta_vim) else "[ FAILED ]").ljust(11)} {"vimrc".ljust(13)} {self.ruta_vim}')
         print(vimrc)
 
 if __name__ == '__main__':
