@@ -4,8 +4,8 @@ import shutil
 
 class Config:
     def __init__(self):
-        self.os = platform.system()         # Detección del sistema
-        self.home = os.path.expanduser("~")      # Busca carpeta de usuario
+        self.os = platform.system()
+        self.home = os.path.expanduser("~")
         self.herramientas = {
             'vim': 'vim',
             'git': 'git',
@@ -77,14 +77,15 @@ class Config:
             'set showmode',
             'set showmatch',
             'set clipboard=unnamedplus',
+            '"setlocal colorcolumn=80',
             '"  --- Estilos ---',
             'set termguicolors',
             f'colorscheme {self.tema}',
             '"  --- Comandos ---',
-            f'autocmd BufEnter *.tex nnoremap <buffer> <C-c> :w<CR>:!pdflatex % {self.unir} {self.borrar} "%:r.aux" "%:r.log" "%:r.out"<CR>:{self.abrir_pdf}<CR><CR>',
-            f'autocmd BufEnter *.c nnoremap <buffer> <C-c> :w<CR>:!gcc % -o %< {self.unir} {self.ejecutar}%<{self.ext}<CR>',
-            f'autocmd BufEnter *.cpp nnoremap <buffer> <C-c> :w<CR>:!g++ % -o %< {self.unir} {self.ejecutar}%<{self.ext}<CR>',
-            f'autocmd BufEnter *.cs nnoremap <buffer> <C-c> :w<CR>:!dotnet run<CR>',
+            f'autocmd BufEnter *.tex nnoremap<buffer><C-c>:w<CR>:!pdflatex %{self.unir}{self.borrar} "%:r.aux" "%:r.log" "%:r.out"<CR>:{self.abrir_pdf}<CR><CR>',
+            f'autocmd BufEnter *.c nnoremap<buffer><C-c>:w<CR>:!gcc %-o%<{self.unir}{self.ejecutar}%<{self.ext}<CR>',
+            f'autocmd BufEnter *.cpp nnoremap<buffer><C-c>:w<CR>:!g++ %-o%<{self.unir}{self.ejecutar}%<{self.ext}<CR>',
+            f'autocmd BufEnter *.cs nnoremap<buffer><C-c>:w<CR>:!dotnet run<CR>',
             '"  --- Funciones ---',
             'function! PlantillaLatex()',
             *[f"    call setline({i+1}, '{linea.replace(chr(39),chr(39)+chr(39))}')" for i, linea in enumerate(plantilla)],
@@ -103,8 +104,8 @@ class Config:
         else:
             'Instalar vim'
         for sta, h, ruta in verificar:
-            print(f'{sta.ljust(11)} {h.ljust(13)} {ruta}')
-        print(f'{("[ OK ]" if os.path.exists(self.ruta_vim) else "[ FAILED ]").ljust(11)} {"vimrc".ljust(13)} {self.ruta_vim}')
+            print(f'{sta.ljust(12)}{h.ljust(15)}{ruta}')
+        print(f'{("[ OK ]" if os.path.exists(self.ruta_vim) else "[ FAILED ]").ljust(12)}{"vimrc".ljust(15)}{self.ruta_vim}')
         print(vimrc)
 
 if __name__ == '__main__':
