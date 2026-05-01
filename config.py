@@ -13,15 +13,13 @@ class Settings:
 
     def vim(self):
         return [
+            '"  --- UI Settings ---',
             'syntax on',
-            'set t_Co=256',
-            'set background=dark',
-            '',
             'set number',
             'set relativenumber', 
             'set cursorline',
-            '',
             'set mouse=a',
+            '"  --- Editing Settings ---',
             'set expandtab',
             'set tabstop=4',
             'set shiftwidth=4',
@@ -29,7 +27,10 @@ class Settings:
             'set autoindent',
             'set noswapfile',
             'set nobackup',
-            '"   --- Comandos ---',
+            '"  --- Styles ---',
+            'set t_Co=256',
+            'set background=dark',
+            '"   --- Keybindings ---',
             '"nnoremap <leader>w :w<CR>'
         ]
 
@@ -37,10 +38,16 @@ class Settings:
         return [
             r'\documentclass{article}',
             r'\usepackage[spanish]{babel}',
+            r'\usepackage[utf8]{inputenc}',
             r'\usepackage[margin=2.5cm]{geometry}',
-            r'\usepackage{amsmath, amssymb}',
             r'\usepackage{graphicx}',
+            r'\usepackage{amsmath, amssymb}',
             r'\usepackage{hyperref}',
+            r'\begin{document}',
+            r'\setlength{\parindent}{0pt}',
+            r'\title{}',
+            r'\author{Juan Cruz}',
+            r'\date{\today}',
             r'\begin{document}',
             r'',
             r'\end{document}'
