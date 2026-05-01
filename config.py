@@ -1,5 +1,7 @@
 import platform
+import shutil
 import os
+import sys
 
 class Settings:
     def __init__(self):
@@ -8,10 +10,15 @@ class Settings:
 
         if self.os == 'Windows':
             self.ruta = os.path.join(home, '_vimrc')
+            self.delete = 'del /Q'
+            self.open_pdf = 'start "" "%:r.pdf"'
         else:
             self.ruta = os.path.join(home, '.vimrc')
+            self.delete = 'rm -f'
+            self.open_pdf = 'xdg-open "%:r.pdf" &'
 
     def vim(self):
+        latex = self.latex()
         return [
             '"  --- UI Settings ---',
             'syntax on',
@@ -24,14 +31,23 @@ class Settings:
             'set tabstop=4',
             'set shiftwidth=4',
             '',
+            'set clipboard=unnamedplus',
+            '',
             'set autoindent',
             'set noswapfile',
             'set nobackup',
             '"  --- Styles ---',
             'set t_Co=256',
             'set background=dark',
-            '"   --- Keybindings ---',
-            '"nnoremap <leader>w :w<CR>'
+            '"  --- Function ---',
+            'function! Latex()',
+            f'  call append(0, [{",".join(chr(39) + line + chr(39) for line in latex)}])',
+            '   $d',
+            '   normal! 13G',
+            'endfunction',
+            '"  --- Keybindings ---',
+            f'autocmd BufNewFile *.tex call Latex()',
+            f'autocmd BufNewFile *.tex nnoremap <buffer> <C-c> :w<CR>:!pdflatex % && {self.delete} "%:r.log" "%:r.aux" "%:r.out" && {self.open_pdf}<CR>'
         ]
 
     def latex(self):
@@ -43,7 +59,6 @@ class Settings:
             r'\usepackage{graphicx}',
             r'\usepackage{amsmath, amssymb}',
             r'\usepackage{hyperref}',
-            r'\begin{document}',
             r'\setlength{\parindent}{0pt}',
             r'\title{}',
             r'\author{Juan Cruz}',
@@ -53,12 +68,34 @@ class Settings:
             r'\end{document}'
         ]
 
+    def development_environment(self):
+        software = {
+            'Vim': 'vim',
+            'Git': 'git',
+            'Latex': 'pdflatex',
+            'Python': 'python3',
+            'C': 'gcc',
+            'Java': 'java'
+        }
+        for app, verificar in software.items():
+            if shutil.which(verificar):
+                print(f'{app.ljust(8)} -> [ INSTALLED ] -> {shutil.which(verificar)}')
+            else:
+                print(f'{app.ljust(8)} -> [ FAILED ] -> {ruta}')
+
     def show(self):
         vim = self.vim()
         with open(self.ruta, 'w') as files:
             files.write('\n'.join(vim))
         print(f'Sistema: {self.os}')
         print(f'Vimrc: {self.ruta}')
+        while True:
+            a = input('See installed apps [Y/N]: ').upper()
+            if a == 'Y':
+                self.development_environment()
+                break
+            elif a in ['', 'N']:
+                sys.exit()
 
 if __name__ == '__main__':
     settings = Settings()
