@@ -18,7 +18,6 @@ class Settings:
             self.open_pdf = 'xdg-open "%:r.pdf" &'
 
     def vim(self):
-        latex = self.latex()
         return [
             '"  --- UI Settings ---',
             'syntax on',
@@ -41,7 +40,7 @@ class Settings:
             'set background=dark',
             '"  --- Function ---',
             'function! Latex()',
-            f'  call append(0, [{",".join(chr(39) + line + chr(39) for line in latex)}])',
+            f'  call append(0, [{",".join(chr(39) + line + chr(39) for line in self.latex())}])',
             '   $d',
             '   normal! 13G',
             'endfunction',
