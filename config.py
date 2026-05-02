@@ -45,8 +45,9 @@ class Settings:
             '   normal! 13G',
             'endfunction',
             '"  --- Keybindings ---',
+            'let mapleader = " "',
             f'autocmd BufNewFile *.tex call Latex()',
-            f'autocmd FileType tex nnoremap <buffer> <C-c> :w<CR>:!pdflatex -interaction=nonstopmode "%" <CR>:!{self.delete} "%:r.log" "%:r.aux" "%:r.out" <CR>:!{self.open_pdf}<CR>:redraw!<CR>'
+            f'autocmd FileType tex nnoremap <buffer> <leader>c :w<CR>:!pdflatex -interaction=nonstopmode "%" <CR>:!{self.delete} "%:r.log" "%:r.aux" "%:r.out" <CR>:!{self.open_pdf}<CR>:redraw!<CR>'
         ]
 
     def latex(self):
