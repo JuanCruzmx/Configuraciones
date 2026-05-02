@@ -15,7 +15,7 @@ class Settings:
         else:
             self.ruta = os.path.join(home, '.vimrc')
             self.delete = 'rm -f'
-            self.open_pdf = 'xdg-open "%:r.pdf" &'
+            self.open_pdf = 'xdg-open "%:r.pdf" >/dev/null 2>&1 &'
 
     def vim(self):
         return [
@@ -46,7 +46,7 @@ class Settings:
             'endfunction',
             '"  --- Keybindings ---',
             f'autocmd BufNewFile *.tex call Latex()',
-            f'autocmd BufNewFile *.tex nnoremap <buffer> <C-c> :w<CR>:!pdflatex % && {self.delete} "%:r.log" "%:r.aux" "%:r.out" && {self.open_pdf}<CR>'
+            f'autocmd FileType tex nnoremap <buffer> <C-c> :w<CR>:!pdflatex -interaction=nonstopmode "%" <CR>:!{self.delete} "%:r.log" "%:r.aux" "%:r.out" <CR>:!{self.open_pdf}<CR>:redraw!<CR>'
         ]
 
     def latex(self):
@@ -57,7 +57,7 @@ class Settings:
             r'\usepackage[margin=2.5cm]{geometry}',
             r'\usepackage{graphicx}',
             r'\usepackage{amsmath, amssymb}',
-            r'\usepackage{hyperref}',
+            r'\usepackage[hidelinks]{hyperref}',
             r'\setlength{\parindent}{0pt}',
             r'\title{}',
             r'\author{Juan Cruz}',
@@ -80,7 +80,7 @@ class Settings:
             if shutil.which(verificar):
                 print(f'{app.ljust(8)} -> [ INSTALLED ] -> {shutil.which(verificar)}')
             else:
-                print(f'{app.ljust(8)} -> [ FAILED ] -> {ruta}')
+                print(f'{app.ljust(8)} -> [ FAILED ]')
 
     def show(self):
         vim = self.vim()
