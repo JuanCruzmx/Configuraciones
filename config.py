@@ -81,20 +81,14 @@ class Settings:
             r'<p> </p>'
            ] 
 
-    def development_environment(self):
-        software = {
-            'Vim': 'vim',
-            'Git': 'git',
-            'Latex': 'pdflatex',
-            'Python': 'python3',
-            'C': 'gcc',
-            'Java': 'java'
-        }
-        for app, verificar in software.items():
-            if shutil.which(verificar):
-                print(f'{app.ljust(8)} -> [ INSTALLED ] -> {shutil.which(verificar)}')
+    def package(self):
+        package = ['vim', 'git', 'pdflatex', 'python3', 'gcc', 'java']
+
+        for app in package:
+            if shutil.which(app):
+                print(f'{app.ljust(10)} {"INSTALLED".ljust(10)} {shutil.which(app)}')
             else:
-                print(f'{app.ljust(8)} -> [ FAILED ]')
+                print(f'{app.ljust(10)} FAILED')
 
     def show(self):
         vim = self.vim()
@@ -105,7 +99,9 @@ class Settings:
         while True:
             a = input('See installed apps [Y/N]: ').upper()
             if a == 'Y':
-                self.development_environment()
+                print(f'{"Package".ljust(10)} {"Status".ljust(10)} Route')
+                print(f'{"-"*10} {"-"*10} {"-"*20}')
+                self.package()
                 break
             elif a in ['', 'N']:
                 sys.exit()
