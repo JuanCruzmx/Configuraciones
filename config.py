@@ -86,9 +86,9 @@ class Settings:
 
         for app in package:
             if shutil.which(app):
-                print(f'{app.ljust(10)} {"INSTALLED".ljust(10)} {shutil.which(app)}')
+                print(f'{app:<10} {"INSTALLED":<10} {shutil.which(app)}')
             else:
-                print(f'{app.ljust(10)} FAILED')
+                print(f'{app:<10} FAILED')
 
     def show(self):
         vim = self.vim()
@@ -99,7 +99,7 @@ class Settings:
         while True:
             a = input('See installed apps [Y/N]: ').upper()
             if a == 'Y':
-                print(f'{"Package".ljust(10)} {"Status".ljust(10)} Route')
+                print(f'{"Package":<10} {"Status":<10} Route')
                 print(f'{"-"*10} {"-"*10} {"-"*20}')
                 self.package()
                 break
