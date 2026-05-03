@@ -44,9 +44,16 @@ class Settings:
             '   $d',
             '   normal! 13G',
             'endfunction',
-            '"  --- Keybindings ---',
+            'function! README()',
+            f'  call append(0, [{",".join(chr(39) + line + chr(39) for line in self.README())}])',
+            '   $d',
+            '   normal! 1G',
+            'endfunction',
+            '"  --- File identifier ---',
             'let mapleader = " "',
             f'autocmd BufNewFile *.tex call Latex()',
+            f'autocmd BufNewFile *.md call README()',
+            '"  --- Keybindings ---',
             f'autocmd FileType tex nnoremap <buffer> <leader>c :w<CR>:!pdflatex -interaction=nonstopmode "%" <CR>:!{self.delete} "%:r.log" "%:r.aux" "%:r.out" <CR>:!{self.open_pdf}<CR>:redraw!<CR>'
         ]
 
@@ -64,9 +71,15 @@ class Settings:
             r'\author{Juan Cruz}',
             r'\date{\today}',
             r'\begin{document}',
-            r'',
+            '',
             r'\end{document}'
         ]
+
+    def README(self):
+        return [
+            r'<h1> </h1>',
+            r'<p> </p>'
+           ] 
 
     def development_environment(self):
         software = {
