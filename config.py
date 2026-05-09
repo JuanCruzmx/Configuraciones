@@ -29,9 +29,7 @@ class Settings:
             "set expandtab",
             "set tabstop=4",
             "set shiftwidth=4",
-            "",
             "set clipboard=unnamedplus",
-            "",
             "set autoindent",
             "set noswapfile",
             "set nobackup",
@@ -87,19 +85,19 @@ class Settings:
             "<html lang=\"es\">",
             "<head>",
             "<meta charset=\"UTF-8\">",
-            "   <link rel=\"stylesheet\" href=\"{{ url_for('static', filename='styles.css') }}\">",
-            r"  <title></title>",
-            r"</head>",
+            "   <link rel=\"stylesheet\" href=\"{{url_for()}}\">",
+            "   <title></title>",
+            "</head>",
             "<body>",
             "",
-            r"</body>",
-            r"</html>"
+            "</body>",
+            "</html>"
         ]
 
     def README(self):
         return [
-            r"<h1> </h1>",
-            r"<p> </p>"
+            "<h1> </h1>",
+            "<p> </p>"
            ] 
 
     def package(self):
