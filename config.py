@@ -89,7 +89,15 @@ class Settings:
             "   <title></title>",
             "</head>",
             "<body>",
+            "   <header>",
             "",
+            "   </header>",
+            "   <main>",
+            "",
+            "   </main>",
+            "   <footer>",
+            "       <p>© 2026</p>",
+            "   </footer>",
             "</body>",
             "</html>"
         ]
