@@ -2,6 +2,8 @@ import platform
 import shutil
 import os
 import sys
+import subprocess
+import re
 
 class Settings:
     def __init__(self):
@@ -113,10 +115,12 @@ class Settings:
         package = ["vim", "git", "pdflatex", "python3", "gcc", "java"]
 
         for app in package:
+            ver = subprocess.check_output([shutil.which(app), "--version"], text=True, stderr=subprocess.STDOUT) 
+            version = re.search(r'\d+(?:\.\d+)+', ver)
             if shutil.which(app):
-                print(f"{app:<10} {'INSTALLED':<10} {shutil.which(app)}")
+                print(f"{app:<15} {version.group(0)}")
             else:
-                print(f"{app:<10} FAILED")
+                print(f"{app:<15}")
 
     def show(self):
         vim = self.vim()
@@ -127,8 +131,8 @@ class Settings:
         while True:
             a = input("See installed apps [Y/N]: ").upper()
             if a == "Y":
-                print(f"{'Package':<10} {'Status':<10} Route")
-                print(f"{'-'*10} {'-'*10} {'-'*20}")
+                print(f"{'Package':<15} {'Version':<15}")
+                print(f"{'-'*15} {'-'*15}")
                 self.package()
                 break
             elif a in ["", "N"]:
