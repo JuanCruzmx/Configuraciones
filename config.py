@@ -15,7 +15,7 @@ class Settings:
         else:
             self.ruta = os.path.join(home, ".vimrc")
             self.delete = "rm -f"
-            self.open_pdf = "xdg-open '%:r.pdf' >/dev/null 2>&1 &"
+            self.open_pdf = "powershell.exe -c start '%:r.pdf'"
 
     def vim(self):
         return [
@@ -58,7 +58,7 @@ class Settings:
             f"autocmd BufNewFile *.md call README()",
             f"autocmd BufNewFile *.html call HTML()",
             "\"    --- Keybindings ---",
-            f"autocmd FileType tex nnoremap <buffer> <leader>c :w<CR>:!pdflatex -interaction=nonstopmode '%' <CR>:!{self.delete} '%:r.log' '%:r.aux' '%:r.out' <CR>:!{self.open_pdf}<CR>:redraw!<CR>"
+            f"autocmd FileType tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex -interaction=nonstopmode '%' <CR>:!{self.delete} '%:r.log' '%:r.aux' '%:r.out' <CR>:!{self.open_pdf}<CR>:redraw!<CR>"
         ]
 
     def latex(self):
@@ -70,8 +70,9 @@ class Settings:
             r"\usepackage{graphicx}",
             r"\usepackage{amsmath, amssymb}",
             r"\usepackage[hidelinks]{hyperref}",
+            r"\usepackage{multicol}",
             r"\setlength{\parindent}{0pt}",
-            r"\title{}",
+            fr"\title{{' . expand('%:t:r') . '}}",
             r"\author{Juan Cruz}",
             r"\date{\today}",
             r"\begin{document}",
