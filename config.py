@@ -116,7 +116,7 @@ class Settings:
 
         for app in package:
             ver = subprocess.check_output([shutil.which(app), "--version"], text=True, stderr=subprocess.STDOUT) 
-            version = re.search(r'\d+(?:\.\d+)+', ver)
+            version = re.search(r"\d+(?:\.\d+)+", ver)
             if shutil.which(app):
                 print(f"{app:<15} {version.group(0)}")
             else:
