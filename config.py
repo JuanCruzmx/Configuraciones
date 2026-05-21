@@ -42,7 +42,7 @@ class Settings:
             "function! Latex()",
             f"    call append(0, [{','.join(chr(39) + line + chr(39) for line in self.latex())}])",
             "    $d",
-            "    normal! 13G",
+            "    normal! 14G",
             "endfunction",
             "function! README()",
             f"    call append(0, [{','.join(chr(39) + line + chr(39) for line in self.README())}])",
@@ -60,7 +60,7 @@ class Settings:
             f"autocmd BufNewFile *.md call README()",
             f"autocmd BufNewFile *.html call HTML()",
             "\"    --- Keybindings ---",
-            f"autocmd FileType tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex -interaction=nonstopmode '%' <CR>:!{self.delete} '%:r.log' '%:r.aux' '%:r.out' <CR>:!{self.open_pdf}<CR>:redraw!<CR>"
+            f"autocmd BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex -interaction=nonstopmode '%' <CR>:!{self.delete} '%:r.log' '%:r.aux' '%:r.out' <CR>:!{self.open_pdf}<CR>:redraw!<CR>"
         ]
 
     def latex(self):
