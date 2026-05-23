@@ -60,7 +60,7 @@ class Settings:
             f"autocmd BufNewFile *.md call README()",
             f"autocmd BufNewFile *.html call HTML()",
             "\"    --- Keybindings ---",
-            f"autocmd BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex -interaction=nonstopmode '%' <CR>:!{self.delete} '%:r.log' '%:r.aux' '%:r.out' <CR>:!{self.open_pdf}<CR>:redraw!<CR>"
+            f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex -interaction=nonstopmode '%' <CR>:!{self.delete} '%:r.log' '%:r.aux' '%:r.out' <CR>:!{self.open_pdf}<CR>:redraw!<CR>"
         ]
 
     def latex(self):
@@ -74,6 +74,7 @@ class Settings:
             r"\usepackage[hidelinks]{hyperref}",
             r"\usepackage{multicol}",
             r"\setlength{\parindent}{0pt}",
+            r"\setlength{\parskip}{0.1cm}",
             fr"\title{{' . expand('%:t:r') . '}}",
             r"\author{Juan Cruz}",
             r"\date{\today}",
