@@ -74,7 +74,7 @@ class Settings:
             r"\usepackage[hidelinks]{hyperref}",
             r"\usepackage{multicol}",
             r"\setlength{\parindent}{0pt}",
-            r"\setlength{\parskip}{0.1cm}",
+            r"\setlength{\parskip}{0.5cm}",
             fr"\title{{' . expand('%:t:r') . '}}",
             r"\author{Juan Cruz}",
             r"\date{\today}",
