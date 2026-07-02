@@ -114,12 +114,25 @@ class Settings:
 
     def package(self):
         package = ["vim", "git", "pdflatex", "python3", "gcc", "java"]
+        print(f"{'Package':<15} {'Version'}")
+        print(f"{'-'*30}")
 
         for app in package:
-            ver = subprocess.check_output([shutil.which(app), "--version"], text=True, stderr=subprocess.STDOUT) 
-            version = re.search(r"\d+(?:\.\d+)+", ver)
-            if shutil.which(app):
-                print(f"{app:<15} {version.group(0)}")
+            ruta = shutil.which(app)
+            if not ruta:
+                print(f"{app:<15}")
+                continue
+
+            for cmd in ["--version", "-version"]:
+                try:
+                    proc = subprocess.run([ruta, cmd], capture_output=True, text=True)
+                    salida = (proc.stdout + proc.stderr).strip()
+                    version = re.search(r"(\d+\.\d+(?:\.\d+)*)", salida)
+                    if version:
+                        print(f"{app:<15} {version.group(1)}")
+                        break 
+                except:
+                    continue
             else:
                 print(f"{app:<15}")
 
@@ -132,8 +145,6 @@ class Settings:
         while True:
             a = input("See installed apps [Y/N]: ").upper()
             if a == "Y":
-                print(f"{'Package':<15} {'Version':<15}")
-                print(f"{'-'*15} {'-'*15}")
                 self.package()
                 break
             elif a in ["", "N"]:
