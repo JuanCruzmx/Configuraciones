@@ -14,6 +14,10 @@ class Settings:
             self.ruta = os.path.join(home, "_vimrc")
             self.delete = "del /Q"
             self.open_pdf = "start '' '%:r.pdf'"
+        elif self.os == "Darwin":
+            self.ruta = os.path.join(home, ".vimrc")
+            self.delete = "rm -f"
+            self.open_pdf = "open '%:r.pdf'"
         else:
             self.ruta = os.path.join(home, ".vimrc")
             self.delete = "rm -f"
