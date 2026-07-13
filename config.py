@@ -1,9 +1,9 @@
-import platform
-import shutil
-import os
+import platform     # Accede al Sistema Operativo
+import shutil       # Localizar donde esta istalado un sistema
+import os           # Interactua con el Sistema Operativo
 import sys
-import subprocess
-import re
+import subprocess   # Ejecuta comando de la terminal en Python
+import re           # Maneja expresiones regulares
 
 class Settings:
     def __init__(self):
