@@ -117,7 +117,7 @@ class Settings:
            ] 
 
     def package(self):
-        package = ["vim", "git", "pdflatex", "python3", "gcc", "java"]
+        package = ["vim", "git", "pdflatex", "python3", "gcc", "java", "psql"]
         print(f"{'Package':<15} {'Version'}")
         print(f"{'-'*30}")
 
