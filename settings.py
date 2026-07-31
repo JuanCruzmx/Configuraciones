@@ -27,7 +27,6 @@ def software():
         else:
             print(f"{i:<15}{re.search(r'\d+(\.\d+)+', version.stdout.splitlines()[0]).group(0)}")
 
-
 intentos = 1
 print(f"Sistema: {sistem}")
 while True:
@@ -41,5 +40,3 @@ while True:
         if intentos == 3:
             sys.exit()
         intentos += 1
-
-print("Continua")
