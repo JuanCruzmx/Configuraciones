@@ -26,6 +26,7 @@ class Settings:
     def vim(self):
         return [
             "\"  --- UI Settings ---",
+            "filetype plugin indent on",
             "syntax on",
             "set number",
             "set relativenumber", 
@@ -37,6 +38,7 @@ class Settings:
             "set shiftwidth=4",
             "set clipboard=unnamedplus",
             "set autoindent",
+            "set smartindent",
             "set noswapfile",
             "set nobackup",
             "\"    --- Styles ---",
@@ -44,9 +46,9 @@ class Settings:
             "set background=dark",
             "\"    --- Function ---",
             "function! Latex()",
-            f"    call append(0, [{','.join(chr(39) + line + chr(39) for line in self.latex())}])",
+            f"    execute '0r ' . fnameescape('{os.path.abspath('plantilla.tex')}')",
             "    $d",
-            "    normal! 16G",
+            "    normal! 39G",
             "endfunction",
             "function! README()",
             f"    call append(0, [{','.join(chr(39) + line + chr(39) for line in self.README())}])",
@@ -67,8 +69,8 @@ class Settings:
             f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:!pdflatex -interaction=nonstopmode '%' <CR>:!{self.delete} '%:r.log' '%:r.aux' '%:r.out' <CR>:!{self.open_pdf}<CR>:redraw!<CR>"
         ]
 
-    def latex(self):
-        return [
+    def codigo(self):
+        codigo = [
             r"\documentclass{article}",
             r"\usepackage[spanish]{babel}",
             r"\usepackage[utf8]{inputenc}",
@@ -78,15 +80,41 @@ class Settings:
             r"\usepackage[hidelinks]{hyperref}",
             r"\usepackage{multicol}",
             r"\usepackage{xcolor}",
+            r"\usepackage{listings}",
             r"\setlength{\parindent}{0pt}",
             r"\setlength{\parskip}{0.5cm}",
-            fr"\title{{' . expand('%:t:r') . '}}",
+            r"\lstdefinestyle{Codigo}{",
+            r"    backgroundcolor=\color{black},",
+            r"    basicstyle=\ttfamily\footnotesize\color{white},",
+            r"    commentstyle=\color{gray}\itshape,",
+            r"    keywordstyle=\color{cyan}\bfseries,",
+            r"    breaklines=true,",
+            r"    captionpos=b,",
+            r"    tabsize=2,",
+            r"    numbers=left,",
+            r"    numberstyle=\tiny\color{gray},",
+            r"    frame=single,",
+            r"    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1",
+            r"          {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1",
+            r"          {ñ}{{\~n}}1 {Ñ}{{\~N}}1",
+            r"          {0}{{{\color{cyan}0}}}1 {1}{{{\color{cyan}1}}}1",
+            r"          {2}{{{\color{cyan}2}}}1 {3}{{{\color{cyan}3}}}1",
+            r"          {4}{{{\color{cyan}4}}}1 {5}{{{\color{cyan}5}}}1", 
+            r"          {6}{{{\color{cyan}6}}}1 {7}{{{\color{cyan}7}}}1", 
+            r"          {8}{{{\color{cyan}8}}}1 {9}{{{\color{cyan}9}}}1",
+            r"}",
+            r"\lstset{style=Codigo}",
+            r"\title{" + "expand('%:t:r')" + "}",
             r"\author{Juan Cruz}",
             r"\date{\today}",
             r"\begin{document}",
             "",
             r"\end{document}"
         ]
+
+        with open("plantilla.tex", "w", encoding="utf-8") as f:
+            for linea in codigo:
+                f.write(linea + "\n")
 
     def html(self):
         return [
@@ -142,6 +170,7 @@ class Settings:
                 print(f"{app:<15}")
 
     def show(self):
+        self.codigo()
         vim = self.vim()
         with open(self.ruta, "w") as files:
             files.write('\n'.join(vim))
