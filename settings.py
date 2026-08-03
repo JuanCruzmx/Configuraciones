@@ -1,17 +1,25 @@
 import os, platform, shutil, subprocess, sys, re
 
-sistem = platform.system()
+sistema = platform.system()
 home = os.path.expanduser("~") 
+ruta_actual = os.getcwd()
+plantillas = os.path.join(ruta_actual, "Plantillas")
 
-if sistem == "Windows":
-    vim = os.path.join(home, "_vimrc")
+if sistema == "Windows":
+    vimrc = os.path.join(home, "_vimrc")
+    vim = os.path.join(home, "vimfiles")
     delete = "del /Q"
-elif sistem == "Darwin":
-    vim = os.path.join(home, ".vimrc")
+    open_pdf = "start '' '%:r.pdf'"
+elif sistema == "Darwin":
+    vimrc = os.path.join(home, ".vimrc")
+    vim = os.path.join(home, ".vim")
     delete = "rm -f"
+    open_pdf = "open '%:r.pdf'"
 else:
-    vim = os.path.join(home, ".vimrc")
+    vimrc = os.path.join(home, ".vimrc")
+    vim = os.path.join(home, ".vim")
     delete = "rm -f"
+    open_pdf = "powershell.exe -c start '%:r.pdf'"
 
 def software():
     software = ["vim", "git", "gcc", "pdflatex", "python3", "java"]
@@ -20,19 +28,36 @@ def software():
 
     for i in software:
         verificar = shutil.which(i)
-        version = subprocess.run([i, "--version"], capture_output=True, text=True, check=True)
         if not verificar:
             print(f"{i}")
             continue
-        else:
+        try:
+            version = subprocess.run([i, "--version"], capture_output=True, text=True, check=True)
             print(f"{i:<15}{re.search(r'\d+(\.\d+)+', version.stdout.splitlines()[0]).group(0)}")
+        except Exception:
+            print("{i}")
+
+def Vim():
+    home_plantillas = os.path.expanduser(os.path.join(vim, "Plantillas"))
+    if os.path.lexists(vimrc):
+        os.remove(vimrc)
+    if os.path.lexists(home_plantillas):
+        if os.path.islink(home_plantillas) or os.path.isfile(home_plantilas):
+            os.remove(home_plantillas)
+        else:
+            shutil.rmtree(home_plantillas)
+    os.symlink(os.path.join(ruta_actual, "vim"), vimrc)
+    os.symlink(plantillas, home_plantillas)
 
 intentos = 1
-print(f"Sistema: {sistem}")
+print(f"Sistema: {sistema}")
+print(f"Ruta actual: {ruta_actual}")
 while True:
     opcion = input("Ver software instalados [Y/N]: ").upper()
     if opcion == "Y":
         software()
+        Vim()
+        print("Configuraciones listas...")
         break
     elif opcion == "N":
         break 

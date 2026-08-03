@@ -10,6 +10,7 @@
 \usepackage{listings}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.5cm}
+\usepackage{currfile}
 \lstdefinestyle{Codigo}{
     backgroundcolor=\color{black},
     basicstyle=\ttfamily\footnotesize\color{white},
@@ -31,9 +32,9 @@
           {8}{{{\color{cyan}8}}}1 {9}{{{\color{cyan}9}}}1
 }
 \lstset{style=Codigo}
-\title{expand('%:t:r')}
+\title{\getthefilename}
 \author{Juan Cruz}
 \date{\today}
 \begin{document}
-
+Hola
 \end{document}
