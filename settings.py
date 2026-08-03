@@ -37,8 +37,15 @@ def software():
         except Exception:
             print("{i}")
 
+def compilar_latex():
+    with open("vim", "r", encoding="utf-8") as l:
+        linea = l.readlines()
+    linea[27] =  f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && {delete} '%:r.log' '%:r.aux' '%:r.out' && {open_pdf} <CR>:redraw!<CR>" + "\n"
+    with open("vim", "w", encoding="utf-8") as l:
+        l.writelines(linea)
+
 def Vim():
-    home_plantillas = os.path.expanduser(os.path.join(vim, "Plantillas"))
+    home_plantillas = os.path.join(vim, "Plantillas")
     if os.path.lexists(vimrc):
         os.remove(vimrc)
     if os.path.lexists(home_plantillas):
@@ -51,10 +58,10 @@ def Vim():
 
 intentos = 1
 print(f"Sistema: {sistema}")
-print(f"Ruta actual: {ruta_actual}")
 while True:
     opcion = input("Ver software instalados [Y/N]: ").upper()
     if opcion == "Y":
+        compilar_latex()
         software()
         Vim()
         print("Configuraciones listas...")

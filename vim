@@ -25,23 +25,4 @@ autocmd BufNewFile *.md 0r ~/.vim/Plantillas/plantilla.md
 autocmd BufNewFile *.html 0r ~/.vim/Plantillas/plantilla.html
 
 "   Comandos
-function! Latex()
-    w
-    execute '!pdflatex -interaction=nonstopmode ' . shellescape(expand('%'))
-   
-    if has('mac')
-        silent execute '!rm -f ' . shellescape(expand('%:r') . '.log') . ' ' . shellescape(expand('%:r') . '.aux') . ' ' . shellescape(expand('%:r') . '.out')
-        silent execute '!open ' . shellescape(expand('%:r') . '.pdf')
-    else
-        if has('win32') || has('win64')
-            silent execute '!del ' . shellescape(expand('%:r') . '.log') . ' ' . shellescape(expand('%:r') . '.aux') . ' ' . shellescape(expand('%:r') . '.out')
-        else
-            silent execute '!rm -f ' . shellescape(expand('%:r') . '.log') . ' ' . shellescape(expand('%:r') . '.aux') . ' ' . shellescape(expand('%:r') . '.out')
-        endif
-        silent execute '!powershell.exe -c start ' . shellescape(expand('%:r') . '.pdf')
-    endif
-    
-    redraw!
-endfunction
-
-autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :call Latex()<CR>
+autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && rm -f '%:r.log' '%:r.aux' '%:r.out' && powershell.exe -c start '%:r.pdf' <CR>:redraw!<CR>
