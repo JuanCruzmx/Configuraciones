@@ -35,7 +35,7 @@ def software():
             version = subprocess.run([i, "--version"], capture_output=True, text=True, check=True)
             print(f"{i:<15}{re.search(r'\d+(\.\d+)+', version.stdout.splitlines()[0]).group(0)}")
         except Exception:
-            print("{i}")
+            print(f"{i}")
 
 def compilar_latex():
     with open("vim", "r", encoding="utf-8") as l:
