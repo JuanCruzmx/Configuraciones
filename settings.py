@@ -22,7 +22,7 @@ else:
     open_pdf = "powershell.exe -c start '%:r.pdf'"
 
 def software():
-    software = ["vim", "git", "gcc", "pdflatex", "python3", "java"]
+    software = ["vim", "git", "gcc", "pdflatex", "python3", "psql", "java"]
     print(f"{'software':<15}{'version'}")
     print(f"{'-'*30}")
 
