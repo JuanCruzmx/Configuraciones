@@ -25,4 +25,4 @@ autocmd BufNewFile *.md 0r ~/.vim/Plantillas/plantilla.md
 autocmd BufNewFile *.html 0r ~/.vim/Plantillas/plantilla.html
 
 "   Comandos
-autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && rm -f '%:r.log' '%:r.aux' '%:r.out' && powershell.exe -c start '%:r.pdf' <CR>:redraw!<CR>
+autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && rm -f '%:r.log' '%:r.aux' '%:r.out' '%:r.pyg' && powershell.exe -c start '%:r.pdf' <CR>:redraw!<CR>
