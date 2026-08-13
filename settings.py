@@ -41,7 +41,7 @@ def software():
 def compilar_latex():
     with open(plantilla_vim, "r", encoding="utf-8") as l:
         linea = l.readlines()
-    linea[26] =  f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && {delete} '%:r.log' '%:r.aux' '%:r.out' && {open_pdf} <CR>:redraw!<CR>" + "\n"
+    linea[26] =  f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && {delete} '%:r.log' '%:r.aux' '%:r.out' '%:r.toc' && {open_pdf} <CR>:redraw!<CR>" + "\n"
     with open(plantilla_vim, "w", encoding="utf-8") as l:
         l.writelines(linea)
 
