@@ -4,6 +4,7 @@ sistema = platform.system()
 home = os.path.expanduser("~") 
 ruta_actual = os.getcwd()
 plantillas = os.path.join(ruta_actual, "Plantillas")
+plantilla_vim = os.path.join(plantillas, "vim")
 
 if sistema == "Windows":
     vimrc = os.path.join(home, "_vimrc")
@@ -38,10 +39,10 @@ def software():
             print(f"{i}")
 
 def compilar_latex():
-    with open("vim", "r", encoding="utf-8") as l:
+    with open(plantilla_vim, "r", encoding="utf-8") as l:
         linea = l.readlines()
-    linea[27] =  f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && {delete} '%:r.log' '%:r.aux' '%:r.out' '%:r.pyg' && {open_pdf} <CR>:redraw!<CR>" + "\n"
-    with open("vim", "w", encoding="utf-8") as l:
+    linea[26] =  f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && {delete} '%:r.log' '%:r.aux' '%:r.out' && {open_pdf} <CR>:redraw!<CR>" + "\n"
+    with open(plantilla_vim, "w", encoding="utf-8") as l:
         l.writelines(linea)
 
 def Vim():
@@ -53,8 +54,8 @@ def Vim():
             os.remove(home_plantillas)
         else:
             shutil.rmtree(home_plantillas)
-    os.symlink(os.path.join(ruta_actual, "vim"), vimrc)
     os.symlink(plantillas, home_plantillas)
+    os.symlink(plantilla_vim, vimrc)
 
 intentos = 1
 print(f"Sistema: {sistema}")
