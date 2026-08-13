@@ -14,8 +14,8 @@ set noswapfile
 set nobackup
 
 "   Estilos
-set t_Co=256
 set background=dark
+:colorscheme habamax 
 
 "   Plantillas
 let mapleader = ' '

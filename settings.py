@@ -38,12 +38,15 @@ def software():
         except Exception:
             print(f"{i}")
 
-def compilar_latex():
-    with open(plantilla_vim, "r", encoding="utf-8") as l:
-        linea = l.readlines()
-    linea[26] =  f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && {delete} '%:r.log' '%:r.aux' '%:r.out' '%:r.toc' && {open_pdf} <CR>:redraw!<CR>" + "\n"
-    with open(plantilla_vim, "w", encoding="utf-8") as l:
-        l.writelines(linea)
+def comandos_vim():
+    latex = f"autocmd BufRead,BufNewFile *.tex nnoremap <buffer> <C-b> :w<CR>:silent !pdflatex -interaction=nonstopmode '%' && {delete} '%:r.log' '%:r.aux' '%:r.out' '%:r.toc' && {open_pdf} <CR>:redraw!<CR>"
+    with open(plantilla_vim, "r", encoding="utf-8") as archivo:
+        contenido = archivo.read()
+    if latex.strip() in contenido:
+        pass
+    else:
+        with open(plantilla_vim, "a", encoding="utf-8") as archivo:
+            archivo.write(latex)
 
 def Vim():
     home_plantillas = os.path.join(vim, "Plantillas")
@@ -62,7 +65,7 @@ print(f"Sistema: {sistema}")
 while True:
     opcion = input("Ver software instalados [Y/N]: ").upper()
     if opcion == "Y":
-        compilar_latex()
+        comandos_vim()
         software()
         Vim()
         print("Configuraciones listas...")
