@@ -48,7 +48,7 @@ def comandos_vim():
         with open(plantilla_vim, "a", encoding="utf-8") as archivo:
             archivo.write(latex)
 
-def Vim():
+def Plantillas():
     home_plantillas = os.path.join(vim, "Plantillas")
     if os.path.lexists(vimrc):
         os.remove(vimrc)
@@ -67,7 +67,7 @@ while True:
     if opcion == "Y":
         comandos_vim()
         software()
-        Vim()
+        Plantillas()
         print("Configuraciones listas...")
         break
     elif opcion == "N":
